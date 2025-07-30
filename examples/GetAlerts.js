@@ -17,7 +17,7 @@ TradingView.getAlerts(process.env.SESSION, process.env.SIGNATURE).then((alerts) 
   console.error('Error:', err.message);
 });
 
-// TradingView.getFiredAlerts({ limit: 50, symbol: 'BYBIT:BTCUSDT.P' }, process.argv[2], process.argv[3]).then((alerts) => {
+// TradingView.getFiredAlerts(process.argv[2], process.argv[3],{ limit: 50, symbol: 'BYBIT:BTCUSDT.P' }).then((alerts) => {
 //   console.log(alerts);
 // }).catch((err) => {
 //   console.error('Error:', err.message);

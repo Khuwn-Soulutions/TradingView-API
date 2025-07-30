@@ -1563,9 +1563,9 @@ declare module '@mathieuc/tradingview' {
     ): Promise<any>;
 
     export function modifyAlert(
-        payload: Alert,
         session: string,
-        signature: string
+        signature: string,
+        payload?: Alert,
     ): Promise<{ s: string, id: string, r: null, errmsg?: string, err?: { code: string } }>;
 
     type FiredAlert = {
@@ -1585,9 +1585,9 @@ declare module '@mathieuc/tradingview' {
     };
 
     export function getFiredAlerts(
-        filter?: { limit?: string, symbol?: string, resolution?: string },
         session: string,
-        signature: string
+        signature: string,
+        filter?: { limit?: string, symbol?: string, resolution?: string },
     ): Promise<{ s: string, id: string, r: FiredAlert[], errmsg?: string, err?: { code: string } }>;
 
     export function getStudySourcesFromLayoutContent(layoutContent: any): any[];

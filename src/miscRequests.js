@@ -1291,7 +1291,7 @@ module.exports = {
   /**
      * update a single alerts
      */
-  async modifyAlert(payload = {}, session, signature) {
+  async modifyAlert(session, signature, payload = {}) {
     const modifiedPayload = payload;
     delete modifiedPayload.cross_interval;
     delete modifiedPayload?.type;
@@ -1537,7 +1537,7 @@ module.exports = {
   /**
      * modify multiple alerts
      */
-  async getFiredAlerts(filter = { limit: 50 }, session, signature) {
+  async getFiredAlerts(session, signature, filter = { limit: 50 },) {
     try {
       const { data } = await axios.post('https://pricealerts.tradingview.com/list_fires', {
         payload: { ...filter },
