@@ -43,13 +43,6 @@ declare module '@mathieuc/tradingview' {
             Chart: typeof ChartSession,
             History: typeof HistorySession,
         };
-        #ws: WebSocket;
-        #logged: boolean;
-        #sessions: SessionList;
-        #sendQueue: string[];
-        #clientBridge: ClientBridge;
-        #callbacks: Record<ClientEvent, Array<(...args: any[]) => void>>;
-
         constructor(clientOptions?: ClientOptions);
 
         get isLogged(): boolean;
@@ -75,12 +68,6 @@ declare module '@mathieuc/tradingview' {
         onEvent(cb: (...args: any[]) => void): void;
 
         end(): Promise<void>;
-
-        #handleEvent(ev: ClientEvent, ...data: any[]): void;
-
-        #handleError(...msgs: any[]): void;
-
-        #parsePacket(str: string): void;
     }
 
     // src/miscRequests
@@ -630,8 +617,6 @@ declare module '@mathieuc/tradingview' {
     }
 
     export class BuiltInIndicator {
-        #type: BuiltInIndicatorType;
-        #options: IndicatorOptions;
 
         constructor(type: BuiltInIndicatorType);
 
@@ -670,8 +655,6 @@ declare module '@mathieuc/tradingview' {
     export type IndicatorType = 'Script@tv-scripting-101!' | 'StrategyScript@tv-scripting-101!';
 
     export class PineIndicator {
-        #options: Indicator;
-        #type: IndicatorType = 'Script@tv-scripting-101!';
 
         constructor(options: Indicator);
 
@@ -787,9 +770,6 @@ declare module '@mathieuc/tradingview' {
         | '-expiration,user__username';
 
     export class PinePermManager {
-        #sessionId: string;
-        #signature: string;
-        #pineId: string;
 
         constructor(sessionId: string, signature: string, pineId: string);
 
@@ -843,14 +823,6 @@ declare module '@mathieuc/tradingview' {
 
 
     export class QuoteMarket {
-        #symbol: string;
-        #session: string;
-        #symbolInfo: SymbolInfo;
-        #symbolKey: string;
-        #symbolListenerID: number;
-        #lastData: Record<string, any>;
-        #callbacks: Record<MarketEvent | 'event', Array<(...args: any[]) => void>>;
-
         constructor(symbol: string, session?: string);
 
         get symbolInfo(): SymbolInfo;
@@ -936,10 +908,6 @@ declare module '@mathieuc/tradingview' {
 
     export class QuoteSession {
         Market: typeof QuoteMarket;
-        #sessionID: string;
-        #client: ClientBridge;
-        #symbolListeners: SymbolListeners;
-        #quoteSession: QuoteSessionBridge;
 
         constructor(options?: QuoteSessionOptions);
 
@@ -1216,21 +1184,6 @@ declare module '@mathieuc/tradingview' {
 
     export class ChartSession {
         Study: typeof ChartStudy;
-        #chartSessionID: string;
-        #replaySessionID: string;
-        #replayMode: boolean;
-        #replayOKCB: Record<string, () => any>;
-        #client: ClientBridge;
-        #studyListeners: StudyListeners;
-        #periods: Record<number, PricePeriod[]>;
-        #infos: MarketInfos;
-        #callbacks: Record<
-            ChartEvent | 'replayLoaded' | 'replayPoint' | 'replayResolution' | 'replayEnd',
-            Array<(...args: any[]) => void>
-        >;
-        #seriesCreated: boolean;
-        #currentSeries: number;
-        #chartSession: ChartSessionBridge;
 
         constructor(client?: ClientBridge);
 
@@ -1290,12 +1243,6 @@ declare module '@mathieuc/tradingview' {
     }
 
     export class HistorySession {
-        #historySessionID: string;
-        #client: ClientBridge;
-        #strategyReport: StrategyReport;
-        #callbacks: Record<ChartEvent | 'historyLoaded', Array<(...args: any[]) => void>>;
-        #historySession: HistorySessionBridge;
-
         constructor(client?: ClientBridge);
 
         get strategyReport(): StrategyReport;
