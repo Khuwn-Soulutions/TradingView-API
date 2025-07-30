@@ -1422,7 +1422,7 @@ module.exports = {
   },
 
   /**
-     * modify multiple alerts
+     * Create alert
      */
   async createAlert(payload, session, signature) {
     try {
@@ -1457,7 +1457,11 @@ module.exports = {
     }
   },
 
-  async createAlertForChart(chartId, name, webhook, message, email = false, sourceId = undefined, session, signature) {
+  async createAlertForChart({
+    chartId, name, webhook, message,
+    session, signature,
+    email = false, sourceId = undefined,
+  }) {
     const contentBlob = await module.exports.fetchLayoutContent(chartId, session, signature);
 
     const studyMetaInfo = contentBlob.studyMetaInfoMap;
@@ -1527,7 +1531,7 @@ module.exports = {
       popup: false,
     };
 
-    const createAlertData = await module.exports.createAlert(alertPayload, process.env.TV_SESSION_ID, process.env.TV_SESSION_SIGNATURE);
+    const createAlertData = await module.exports.createAlert(alertPayload, session, signature);
 
     return {
       status: 'OK', message: 'Alert created successfully.', data: createAlertData,

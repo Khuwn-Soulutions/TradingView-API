@@ -1538,16 +1538,16 @@ declare module '@mathieuc/tradingview' {
         signature: string
     ): Promise<{ s: string, id: string, r: AlertCreated, errmsg?: string, err?: { code: string } }>;
 
-    export function createAlertForChart(
+    export function createAlertForChart({ chartId, name, webhook, message, session, signature, email, sourceId, }: {
         chartId: string,
         name: string,
         webhook: string,
         message: string,
-        email: boolean,
-        sourceId: string | undefined,
+        email?: boolean,
+        sourceId?: string,
         session: string,
         signature: string
-    ): Promise<{ status: 'OK' | 'ERROR', message: string, data?: any }>;
+    }): Promise<{ status: 'OK' | 'ERROR', message: string, data?: any }>;
 
     export function alertToBacktest(
         alert: Alert,
